@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('back')
-<a href="{{ route('transactionLogs.index', ['id' => $id]) }}" class="btn btn-secondary">Back</a>
+<a href="{{ route('transactionLogs.index', ['id' => $id]) }}" class="btn btn-secondary">رجوع</a>
 @endsection
 
 
@@ -11,31 +11,31 @@
         <form action="{{ route('transactionLogs.store', ['id' => $id]) }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="title">Title:</label>
+                <label for="title">عنوان:</label>
                 <input type="text" name="title" id="title" class="form-control">
                 @error('title')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group">
-                <label for="amount">Amount:</label>
+                <label for="amount">المبلغ:</label>
                 <input type="number" name="amount" id="amount" class="form-control">
                 @error('amount')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group">
-                <label for="type">Type:</label>
+                <label for="type">نوع:</label>
                 <select name="type" id="type" class="form-control">
-                    <option value="deposit">Deposit</option>
-                    <option value="withdraw">Withdraw</option>
+                    <option value="deposit">ايداع</option>
+                    <option value="withdraw">سحب</option>
                 </select>
                 @error('type')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group">
-                <label for="currency">Currency:</label>
+                <label for="currency">العمله:</label>
                 <select name="currency" id="currency" class="form-control">
                     <option value="usd">دولار</option>
                     <option value="yr">ريال يمني</option>
@@ -46,18 +46,18 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="status">status:</label>
+                <label for="status">الحاله:</label>
                 <select name="status" id="status" class="form-control">
-                    <option value="pending">pending</option>
-                    <option value="completed">completed</option>
-                    <option value="cancelled">cancelled</option>
+                    <option value="pending">قيد الانتظار</option>
+                    <option value="completed">مكتمل</option>
+                    <option value="cancelled">ألغيت</option>
                 </select>
                 @error('status')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group">
-                <label for="description">Description:</label>
+                <label for="description">الوصف:</label>
                 <textarea name="description" id="description" class="form-control"></textarea>
                 @error('description')
                     <div class="text-danger">{{ $message }}</div>
@@ -70,7 +70,7 @@
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="submit" class="btn btn-primary">اضافة</button>
         </form>
     </div>
 @endsection

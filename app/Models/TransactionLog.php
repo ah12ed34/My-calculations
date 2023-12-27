@@ -98,6 +98,29 @@ class TransactionLog extends Model
         }
     }
 
+    public function get_arabic_status(): string
+    {
+        return match ($this->status) {
+            'pending' => 'قيد الانتظار',
+            'cancelled' => 'ملغي',
+            'completed' => 'مكتمل',
+        };
+    }
+    public function get_arabic_type(): string
+    {
+        return match ($this->type) {
+            'deposit' => 'ايداع',
+            'withdraw' => 'سحب',
+        };
+    }
+    public function get_arabic_currency(): string
+    {
+        return match ($this->currency) {
+            'usd' => 'دولار',
+            'yr' => 'ريال يمني',
+            'sr' => 'ريال سعودي',
+        };
+    }
 
     // private function changeCurrency(Customer &$customer,string $CurrNew, float $AmouNew){
     //     if($this->currency!=$CurrNew){

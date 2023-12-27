@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('back')
-<a href="{{ route('customers.index') }}" class="btn btn-secondary">Back</a>
+<a href="{{ route('customers.index') }}" class="btn btn-secondary">رجوع</a>
 @endsection
 @section('content')
 <h1 class="text-center">سجل العمليات</h1>
@@ -43,9 +43,9 @@
                             <td>{{ $TransactionLog->id }}</td>
                             <td>{{ $TransactionLog->title }}</td>
                             <td>{{ $TransactionLog->amount }}</td>
-                            <td>{{ $TransactionLog->type }}</td>
-                            <td>{{ $TransactionLog->currency }}</td>
-                            <td>{{ $TransactionLog->status }}</td>
+                            <td>{{ $TransactionLog->get_arabic_type()}}</td>
+                            <td>{{ $TransactionLog->get_arabic_currency() }}</td>
+                            <td>{{ $TransactionLog->get_arabic_status() }}</td>
                             <td>{{ Str::limit( $TransactionLog->description, 20) }}</td>
                             <td>{{ $TransactionLog->request_date }}</td>
                             <td>{{ $TransactionLog->updated_at->diffForHumans() }}</td>
