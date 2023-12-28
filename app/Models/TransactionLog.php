@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\TransactionType;
 use PhpParser\Node\Expr\Cast\Double;
+use PhpParser\Node\Stmt\Return_;
 
 use function PHPSTORM_META\type;
 
@@ -86,16 +87,12 @@ class TransactionLog extends Model
 
     private function getAmountField(string $currency = null)
     {
-        switch ($currency ?? $this->currency) {
-            case 'usd':
-                return 'amount_usd';
-            case 'yr':
-                return 'amount_yr';
-            case 'sr':
-                return 'amount_sr';
-            default:
-                return null;
-        }
+        return match($currency ?? $this->currency){
+            'usd' => 'amount_usd',
+            'yr' => 'amount_yr',
+            'sr' => 'amount_sr',
+
+        };
     }
 
     public function get_arabic_status(): string
@@ -121,73 +118,4 @@ class TransactionLog extends Model
             'sr' => 'ريال سعودي',
         };
     }
-
-    // private function changeCurrency(Customer &$customer,string $CurrNew, float $AmouNew){
-    //     if($this->currency!=$CurrNew){
-    //         switch ($this->currency) {
-    //             case 'usd':
-    //                 $customer->amount_usd -=($this->type=="deposit")?($this->amount):-($this->amount);
-    //                 break;
-    //             case 'yr':
-    //                 $customer->amount_yr -=($this->type=="deposit")?($this->amount):-($this->amount);
-    //                 break;
-    //             case 'sr':
-    //                 $customer->amount_sr -=($this->type=="deposit")?($this->amount):-($this->amount);
-    //                 break;
-    //         }
-    //         if($this->amount==$AmouNew){
-    //             switch ($CurrNew) {
-    //                 case 'usd':
-    //                     $customer->amount_usd +=($this->type=="deposit")?($this->amount):-($this->amount);
-    //                     break;
-    //                 case 'yr':
-    //                     $customer->amount_yr +=($this->type=="deposit")?($this->amount):-($this->amount);
-    //                     break;
-    //                 case 'sr':
-    //                     $customer->amount_sr +=($this->type=="deposit")?($this->amount):-($this->amount);
-    //                     break;
-    //             }
-    //         }else{
-    //             switch ($CurrNew) {
-    //                 case 'usd':
-    //                     $customer->amount_usd +=($this->type=="deposit")?($AmouNew):-($AmouNew);
-    //                     break;
-    //                 case 'yr':
-    //                     $customer->amount_yr +=($this->type=="deposit")?($AmouNew):-($AmouNew);
-    //                     break;
-    //                 case 'sr':
-    //                     $customer->amount_sr +=($this->type=="deposit")?($AmouNew):-($AmouNew);
-    //                     break;
-    //             }
-    //         }
-    //     }else{
-    //         $this->changeAmount($customer,$AmouNew);
-    //     }
-    // }
-    // private function changeAmount(Customer &$customer,$AmouNew){
-    //     if($this->amount!=$AmouNew){
-    //         switch ($this->currency) {
-    //             case 'usd':
-    //                 $customer->amount_usd -=($this->type=="deposit")?($this->amount):-($this->amount);
-    //                 break;
-    //             case 'yr':
-    //                 $customer->amount_yr -=($this->type=="deposit")?($this->amount):-($this->amount);
-    //                 break;
-    //             case 'sr':
-    //                 $customer->amount_sr -=($this->type=="deposit")?($this->amount):-($this->amount);
-    //                 break;
-    //         }
-    //         switch ($this->currency) {
-    //             case 'usd':
-    //                 $customer->amount_usd +=($this->type=="deposit")?($AmouNew):-($AmouNew);
-    //                 break;
-    //             case 'yr':
-    //                 $customer->amount_yr +=($this->type=="deposit")?($AmouNew):-($AmouNew);
-    //                 break;
-    //             case 'sr':
-    //                 $customer->amount_sr +=($this->type=="deposit")?($AmouNew):-($AmouNew);
-    //                 break;
-    //         }
-    //     }
-    // }
 }

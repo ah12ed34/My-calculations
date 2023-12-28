@@ -33,7 +33,7 @@ Route::prefix('customers')->group(function () {
     Route::post('/store', [pathC\CustomerController::class, 'store'])->name('customers.store');
     Route::get('/show/{customer}', [pathC\CustomerController::class, 'show'])->name('customers.show');
     Route::get('/edit/{customer}', [pathC\CustomerController::class, 'edit'])->name('customers.edit');
-    Route::post('/update/{customer}', [pathC\CustomerController::class, 'update'])->name('customers.update');
+    Route::put('/update/{customer}', [pathC\CustomerController::class, 'update'])->name('customers.update');
     Route::DELETE('/destroy/{customer}', [pathC\CustomerController::class, 'destroy'])->name('customers.destroy');
 });
 
@@ -43,6 +43,6 @@ Route::prefix('/customers/{id}/transactionLogs')->group(function () {
     Route::post('/store', [pathC\TransactionLogController::class, 'store'])->name('transactionLogs.store');
     Route::get('/show/{transactionLog}', [pathC\TransactionLogController::class, 'show'])->name('transactionLogs.show');
     Route::get('/edit/{transactionLog}', [pathC\TransactionLogController::class, 'edit'])->name('transactionLogs.edit');
-    Route::post('/update/{transactionLog}', [pathC\TransactionLogController::class, 'update'])->name('transactionLogs.update');
+    Route::put('/update/{transactionLog}', [pathC\TransactionLogController::class, 'update'])->name('transactionLogs.update');
     Route::delete('/destroy/{transactionLog}', [pathC\TransactionLogController::class, 'destroy'])->name('transactionLogs.destroy');
 });
