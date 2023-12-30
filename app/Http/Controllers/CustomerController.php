@@ -67,6 +67,7 @@ class CustomerController extends Controller
     public function edit(Customer $customer)
     {
         //
+        return view('customers.edit', compact('customer'));
     }
 
     /**
@@ -75,6 +76,20 @@ class CustomerController extends Controller
     public function update(Request $request, Customer $customer)
     {
         //
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'nullable|email',
+            'phone' => 'nullable|numeric',
+            'password' => 'nullable|string',
+            'description' => 'nullable',
+        ],['name'=>'يجب اضافة الاسم']);
+        $customer->name = $request->name;
+        $customer->email = $request->email??$customer->email;
+        $customer->phone = $request->phone??$customer->phone;
+        $customer->description = $request->description;
+        $customer->password = $request->password??$customer->password;
+        $customer->update();
+        return redirect()->route('customers.index');
     }
 
     /**

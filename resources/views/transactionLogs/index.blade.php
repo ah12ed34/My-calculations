@@ -1,7 +1,5 @@
 @extends('layouts.app')
-@section('back')
-<a href="{{ route('customers.index') }}" class="btn btn-secondary">رجوع</a>
-@endsection
+
 @section('content')
 <h1 class="text-center">سجل العمليات</h1>
             <a href="{{ route("transactionLogs.create", ['id' => $id]) }}" class="btn btn-primary">اضافة عمليه</a>
@@ -21,7 +19,7 @@
 </div>
 <div class="col-md-9 order-md-1">
             
-            <!-- Add your code here -->
+            <!-- Add your code here  -->
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
@@ -51,7 +49,15 @@
                             <td>{{ $TransactionLog->updated_at->diffForHumans() }}</td>
                             <td>{{ $TransactionLog->created_at->diffForHumans() }}</td>
                             <td><a href="{{ route('transactionLogs.edit', ['transactionLog' => $TransactionLog->id ,'id' => $id]) }}" class="btn btn-primary">تعديل</a></td>
-                            <td><a href="{{ route('transactionLogs.destroy', ['transactionLog' => $TransactionLog->id ,'id' => $id]) }}" class="btn btn-danger">حذف</a></td>
+
+                            {{-- <td><a href="{{ route('transactionLogs.destroy', ['transactionLog' => $TransactionLog->id ,'id' => $id]) }}" class="btn btn-danger">حذف</a></td> --}}
+                            <td>
+                                <form action="{{ route('transactionLogs.destroy', ['transactionLog' => $TransactionLog->id ,'id' => $id]) }}" method="POST" >
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger">حذف</button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
