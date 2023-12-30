@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('back')
+<a href="{{ route('customers.index') }}" class="btn btn-secondary">رجوع</a>
+@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
