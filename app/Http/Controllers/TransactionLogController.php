@@ -315,4 +315,5 @@ class TransactionLogController extends Controller
     }
         return redirect()->route('transactionLogs.index',compact('id'));
     }
+
 }

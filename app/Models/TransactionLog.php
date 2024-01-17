@@ -28,6 +28,10 @@ class TransactionLog extends Model
         'updated_at'
     ];
 
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 
     public function change(Customer $customer, string $typeNew, string $CurrNew, float $AmouNew): bool
     {

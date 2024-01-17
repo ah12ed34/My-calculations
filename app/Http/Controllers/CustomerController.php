@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
@@ -45,6 +46,7 @@ class CustomerController extends Controller
         $customer->email = $request->email;
         $customer->phone = $request->phone;
         $customer->description = $request->description;
+        $customer->password = ($request->password) ? Hash::make($request->password) : null;
         $customer->user_id = auth()->user()->id;
         $customer->amount_usd = ($request->amount_usd) ? $request->amount_usd : 0;
         $customer->amount_yr = ($request->amount_yr) ? $request->amount_yr : 0;
@@ -84,10 +86,10 @@ class CustomerController extends Controller
             'description' => 'nullable',
         ],['name'=>'يجب اضافة الاسم']);
         $customer->name = $request->name;
-        $customer->email = $request->email??$customer->email;
-        $customer->phone = $request->phone??$customer->phone;
+        $customer->email = $request->email;
+        $customer->phone = $request->phone;
         $customer->description = $request->description;
-        $customer->password = $request->password??$customer->password;
+        $customer->password = ($request->password) ? Hash::make($request->password) : $customer->password;
         $customer->update();
         return redirect()->route('customers.index');
     }

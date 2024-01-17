@@ -18,4 +18,8 @@ class Customer extends Model
         'amount_yr',
         'amount_sr',
     ];
+    public function transactionLogs()
+    {
+        return $this->hasMany(TransactionLog::class);
+    }
 }

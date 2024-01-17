@@ -13,6 +13,7 @@
         <label for="name">اسم العميل</label>
         <input type="text" name="name" id="name" value="{{ $customer->name }}" class="form-control">
     </div>
+    
 
     <div class="form-group">
         <label for="email">البريد الإلكتروني</label>
