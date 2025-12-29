@@ -45,6 +45,7 @@ Route::prefix('/customers/{id}/transactionLogs')->group(function () {
     Route::get('/edit/{transactionLog}', [pathC\TransactionLogController::class, 'edit'])->name('transactionLogs.edit');
     Route::put('/update/{transactionLog}', [pathC\TransactionLogController::class, 'update'])->name('transactionLogs.update');
     Route::delete('/destroy/{transactionLog}', [pathC\TransactionLogController::class, 'destroy'])->name('transactionLogs.destroy');
+    Route::post('/changeCurrencyDefault', [pathC\TransactionLogController::class, 'chanegeCurrencyDefault'])->name('transactionLogs.changeCurrencyDefault');
 });
 
 Route::get('/showaccount', [pathC\ShowAccont::class, 'index'])->name('showaccount.index');

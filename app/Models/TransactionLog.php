@@ -82,7 +82,7 @@ class TransactionLog extends Model
     {
         if ($this->amount != $AmouNew) {
             $conversionFactor = ($this->type == "deposit") ? 1 : -1;
-            if($remove){ 
+            if($remove){
                 $customer->{$this->getAmountField()} -= $this->amount * $conversionFactor;
             }
             $customer->{$this->getAmountField()} += $AmouNew * $conversionFactor;
@@ -95,6 +95,9 @@ class TransactionLog extends Model
             'usd' => 'amount_usd',
             'yr' => 'amount_yr',
             'sr' => 'amount_sr',
+            'egp' => 'amount_egp',
+            'try' => 'amount_try',
+            default => 'amount',
 
         };
     }
@@ -120,6 +123,10 @@ class TransactionLog extends Model
             'usd' => 'دولار',
             'yr' => 'ريال يمني',
             'sr' => 'ريال سعودي',
+            'egp' => 'جنيه مصري',
+            'try' => 'ليرة تركية',
+            default => 'غير معروف',
+
         };
     }
 }

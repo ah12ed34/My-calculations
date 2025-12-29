@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('back')
-<a href="{{ route('transactionLogs.index', ['id' => $id]) }}" class="btn btn-secondary">رجوع</a>
+    <a href="{{ route('transactionLogs.index', ['id' => $id]) }}" class="btn btn-secondary">رجوع</a>
 @endsection
 
 
 @section('content')
-    <div class="container">        
+    <div class="container">
         <h1 class="text-center">Add Transaction Log</h1>
         <form action="{{ route('transactionLogs.store', ['id' => $id]) }}" method="POST">
             @csrf
@@ -37,9 +37,11 @@
             <div class="form-group">
                 <label for="currency">العمله:</label>
                 <select name="currency" id="currency" class="form-control">
-                    <option value="usd">دولار</option>
-                    <option value="yr">ريال يمني</option>
-                    <option value="sr">ريال سعودي</option>
+                    <option value="usd" @if ($currency_default == 'usd') selected @endif>دولار</option>
+                    <option value="yr" @if ($currency_default == 'yr') selected @endif>ريال يمني</option>
+                    <option value="sr" @if ($currency_default == 'sr') selected @endif>ريال سعودي</option>
+                    <option value="egp" @if ($currency_default == 'egp') selected @endif>جنيه مصري</option>
+                    <option value="try" @if ($currency_default == 'try') selected @endif>ليرة تركية</option>
                 </select>
                 @error('currency')
                     <div class="text-danger">{{ $message }}</div>
@@ -65,7 +67,8 @@
             </div>
             <div class="form-group">
                 <label for="request_date">Request Date:</label>
-                <input type="date" name="request_date" id="request_date" class="form-control" value="{{ date('Y-m-d') }}">
+                <input type="date" name="request_date" id="request_date" class="form-control"
+                    value="{{ date('Y-m-d') }}">
                 @error('request_date')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror

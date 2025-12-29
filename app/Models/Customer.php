@@ -17,6 +17,8 @@ class Customer extends Model
         'amount_usd',
         'amount_yr',
         'amount_sr',
+        'amount_egp',
+        'amount_try',
     ];
     public function transactionLogs()
     {

@@ -4,6 +4,8 @@ enum TransactionCurrency : string {
     case usd = 'usd';
     case yr = 'yr';
     case sr = 'sr';
+    case egp = 'egp';
+    case try = 'try';
 
     function getArray(): array
     {
@@ -11,6 +13,8 @@ enum TransactionCurrency : string {
             'usd',
             'yr',
             'sr',
+            'egp',
+            'try',
         ];
     }
     public function getLabel(): string
@@ -19,6 +23,8 @@ enum TransactionCurrency : string {
             self::usd => 'USD',
             self::yr => 'YR',
             self::sr => 'SR',
+            self::egp => 'EGP',
+            self::try => 'TRY',
         };
     }
 }
