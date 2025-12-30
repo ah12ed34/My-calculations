@@ -16,6 +16,8 @@
                 <p class="card-text">دولار: {{ $customer->amount_usd }}</p>
                 <p class="card-text">ريال يمني: {{ $customer->amount_yr }}</p>
                 <p class="card-text">ريال سعودي: {{ $customer->amount_sr }}</p>
+                <p class="card-text">جنيه مصري: {{ $customer->amount_egp }}</p>
+                <p class="card-text">ليرة تركية: {{ $customer->amount_try }}</p>
             </div>
         </div>
     </div>

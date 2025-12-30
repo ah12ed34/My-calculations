@@ -12,22 +12,32 @@ class ShowAccont extends Controller
 {
     //
 
-    public function index(){
+    public function index()
+    {
         return view('display.index');
     }
-    public function showTransactionLogs(Request $request){
+    public function showTransactionLogs(Request $request)
+    {
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|string',
         ]);
-        $customer = Customer::where('email',$request->email)->first();
-        if($customer){
-            if($request->password!=null && Hash::check($request->password, $customer->password)){
+        $customer = Customer::where('email', $request->email)->first();
+        if ($customer) {
+            if ($request->password != null && Hash::check($request->password, $customer->password)) {
                 return view('display.show', compact('customer'));
-            }else{
+            } else {
                 return  "Error in login password";
             }
-        }else
-        return  "Error in login";
+        } else
+            return  "Error in login";
+    }
+
+    public function show(Request $request)
+    {
+        //
+        // dd($customer_Id, $request->transactionLog);
+        $transactionLog = TransactionLog::find($request->transactionLog);
+        return view('transactionLogs.show', compact('transactionLog'));
     }
 }

@@ -16,9 +16,9 @@ use App\Http\Controllers as pathC;
 */
 
 Route::get('/', function () {
-    if(Auth::check()){
+    if (Auth::check()) {
         return redirect(route('home'));
-    }else{
+    } else {
         return redirect(route('login'));
     }
 });
@@ -41,12 +41,16 @@ Route::prefix('/customers/{id}/transactionLogs')->group(function () {
     Route::get('/', [pathC\TransactionLogController::class, 'index'])->name('transactionLogs.index');
     Route::get('/add', [pathC\TransactionLogController::class, 'create'])->name('transactionLogs.create');
     Route::post('/store', [pathC\TransactionLogController::class, 'store'])->name('transactionLogs.store');
-    Route::get('/show/{transactionLog}', [pathC\TransactionLogController::class, 'show'])->name('transactionLogs.show');
     Route::get('/edit/{transactionLog}', [pathC\TransactionLogController::class, 'edit'])->name('transactionLogs.edit');
     Route::put('/update/{transactionLog}', [pathC\TransactionLogController::class, 'update'])->name('transactionLogs.update');
     Route::delete('/destroy/{transactionLog}', [pathC\TransactionLogController::class, 'destroy'])->name('transactionLogs.destroy');
     Route::post('/changeCurrencyDefault', [pathC\TransactionLogController::class, 'chanegeCurrencyDefault'])->name('transactionLogs.changeCurrencyDefault');
+    Route::post(
+    '/recalculate',
+    [pathC\TransactionLogController::class, 'recalculate']
+)->name('transactionLogs.recalculate');
 });
 
 Route::get('/showaccount', [pathC\ShowAccont::class, 'index'])->name('showaccount.index');
 Route::post('/showaccount', [pathC\ShowAccont::class, 'showTransactionLogs'])->name('showaccount.show');
+Route::get('/show/{transactionLog}', [pathC\ShowAccont::class, 'show'])->name('transactionLogs.show');

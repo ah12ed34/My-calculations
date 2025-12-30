@@ -85,32 +85,49 @@ class TransactionLogController extends Controller
         // return gettype($request->request_date);
         if ($transactionLog->save()) {
             $customer = Customer::find($id);
-            switch ($request->currency) {
-                case 'usd':
-                    if ($request->type === 'deposit') {
-                        $customer->amount_usd +=  $request->amount;
-                    } elseif ($request->type === 'withdraw') {
-                        $customer->amount_usd -=  $request->amount;
-                    }
-                    $customer->save();
-                    break;
-                case 'yr':
-                    if ($request->type === 'deposit') {
-                        $customer->amount_yr +=  $request->amount;
-                    } elseif ($request->type === 'withdraw') {
-                        $customer->amount_yr -=  $request->amount;
-                    }
-                    $customer->save();
-                    break;
-                case 'sr':
-                    if ($request->type === 'deposit') {
-                        $customer->amount_sr +=  $request->amount;
-                    } elseif ($request->type === 'withdraw') {
-                        $customer->amount_sr -=  $request->amount;
-                    }
-                    $customer->save();
-                    break;
-            }
+            // switch ($request->currency) {
+            //     case 'usd':
+            //         if ($request->type === 'deposit') {
+            //             $customer->amount_usd +=  $request->amount;
+            //         } elseif ($request->type === 'withdraw') {
+            //             $customer->amount_usd -=  $request->amount;
+            //         }
+            //         $customer->save();
+            //         break;
+            //     case 'yr':
+            //         if ($request->type === 'deposit') {
+            //             $customer->amount_yr +=  $request->amount;
+            //         } elseif ($request->type === 'withdraw') {
+            //             $customer->amount_yr -=  $request->amount;
+            //         }
+            //         $customer->save();
+            //         break;
+            //     case 'sr':
+            //         if ($request->type === 'deposit') {
+            //             $customer->amount_sr +=  $request->amount;
+            //         } elseif ($request->type === 'withdraw') {
+            //             $customer->amount_sr -=  $request->amount;
+            //         }
+            //         $customer->save();
+            //         break;
+            //     case 'egp':
+            //         if ($request->type === 'deposit') {
+            //             $customer->amount_egp +=  $request->amount;
+            //         } elseif ($request->type === 'withdraw') {
+            //             $customer->amount_egp -=  $request->amount;
+            //         }
+            //         $customer->save();
+            //         break;
+            //     case 'try':
+            //         if ($request->type === 'deposit') {
+            //             $customer->amount_try +=  $request->amount;
+            //         } elseif ($request->type === 'withdraw') {
+            //             $customer->amount_try -=  $request->amount;
+            //         }
+            //         $customer->save();
+            //         break;
+            // }
+            $customer->adjustBalance($request->currency, $request->amount, $request->type);
         } else {
             return error("Error in saving transaction log");
         }
@@ -120,10 +137,13 @@ class TransactionLogController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(TransactionLog $transactionLog)
-    {
-        //
-    }
+    // public function show(Request $request)
+    // {
+    //     //
+    //     // dd($customer_Id, $request->transactionLog);
+    //     $transactionLog = TransactionLog::find($request->transactionLog);
+    //     return view('transactionLogs.show', compact('transactionLog'));
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -151,129 +171,7 @@ class TransactionLogController extends Controller
             // 'date' => 'required|date',
 
         ]);
-        // $oldAmount = $transactionLog->amount;
-        // $oldCurrency = $transactionLog->currency;
-        // $oldType = $transactionLog->type;
-        // // $customer_Id = $id;
-        // $transactionLog->title = $request->title;
-        // $transactionLog->amount = $request->amount;
-        // $transactionLog->type = $request->type;
-        // $transactionLog->currency = $request->currency;
-        // $transactionLog->description = $request->description;
-        // $transactionLog->status = $request->status;
-        // $transactionLog->request_date = $request->request_date;
-        // ;
-        // if($transactionLog->save()){
-        //     $customer = Customer::find($id);
-        //         if($oldCurrency == $request->currency){
-        //             if($oldAmount != $request->amount){
-        //             switch($request->currency){
-        //         case 'usd':
-        //             if($request->type === 'deposit'){
-        //                 $customer->amount_usd +=  ($request->amount-$oldAmount);
-        //             }elseif($request->type === 'withdraw'){
-        //                 $customer->amount_usd -=  ($request->amount-$oldAmount);
-        //             }
-        //             $customer->save();
-        //             break;
-        //         case 'yr':
-        //             if($request->type === 'deposit'){
-        //                 $customer->amount_yr += ($request->amount-$oldAmount);
-        //             }elseif($request->type === 'withdraw'){
-        //                 $customer->amount_yr -=  ($request->amount-$oldAmount);
-        //             }
-        //             $customer->save();
-        //             break;
-        //         case 'sr':
-        //             if($request->type === 'deposit'){
-        //                 $customer->amount_sr +=  ($request->amount-$oldAmount);
-        //             }elseif($request->type === 'withdraw'){
-        //                 $customer->amount_sr -=  ($request->amount-$oldAmount);
-        //             }
-        //             $customer->save();
-        //             break;
-        //             }
-        //             }
-        //     }else{
-        //             switch($oldCurrency){
-        //         case 'usd':
-        //             if($oldType === 'deposit'){
-        //                 $customer->amount_usd -=  $oldAmount;
-        //             }elseif($oldType === 'withdraw'){
-        //                 $customer->amount_usd +=  $oldAmount;
-        //             }
-        //             switch($request->currency){
-        //                 case 'yr':
-        //                     if($request->type === 'deposit'){
-        //                         $customer->amount_yr +=  $request->amount;
-        //                     }elseif($request->type === 'withdraw'){
-        //                         $customer->amount_yr -=  $request->amount;
-        //                     }
-        //                     break;
-        //                 case 'sr':
-        //                     if($request->type === 'deposit'){
-        //                             $customer->amount_sr +=  $request->amount;
-        //                     }elseif($request->type === 'withdraw'){
-        //                             $customer->amount_sr -=  $request->amount;
-        //                     }
-        //                         break;
-        //             }
-        //             $customer->save();
-        //             break;
-        //         case 'yr':
-        //             if($oldType === 'deposit'){
-        //                 $customer->amount_yr -=  $oldAmount;
-        //             }elseif($oldType === 'withdraw'){
-        //                 $customer->amount_yr +=  $oldAmount;
-        //             }
-        //             switch($request->currency){
-        //                 case 'usd':
-        //                     if($request->type === 'deposit'){
-        //                         $customer->amount_usd +=  $request->amount;
-        //                     }elseif($request->type === 'withdraw'){
-        //                         $customer->amount_usd -=  $request->amount;
-        //                     }
-        //                     break;
-        //                 case 'sr':
-        //                     if($request->type === 'deposit'){
-        //                             $customer->amount_sr +=  $request->amount;
-        //                     }elseif($request->type === 'withdraw'){
-        //                             $customer->amount_sr -=  $request->amount;
-        //                     }
-        //                         break;
-        //             }
-        //             $customer->save();
-        //             break;
-        //         case 'sr':
-        //             if($oldType === 'deposit'){
-        //                 $customer->amount_sr -=  $oldAmount;
-        //             }elseif($oldType === 'withdraw'){
-        //                 $customer->amount_sr +=  $oldAmount;
-        //             }
-        //             switch($request->currency){
-        //                 case 'usd':
-        //                     if($request->type === 'deposit'){
-        //                         $customer->amount_usd +=  $request->amount;
-        //                     }elseif($request->type === 'withdraw'){
-        //                         $customer->amount_usd -=  $request->amount;
-        //                     }
-        //                     break;
-        //                 case 'yr':
-        //                     if($request->type === 'deposit'){
-        //                             $customer->amount_yr +=  $request->amount;
-        //                     }elseif($request->type === 'withdraw'){
-        //                             $customer->amount_yr -=  $request->amount;
-        //                     }
-        //                         break;
-        //             }
-        //             $customer->save();
-        //             break;
-        //     }
 
-        //     }
-        //     }else{
-        //     return error("Error in saving transaction log");
-        // }
         $transactionLog->title = $request->title;
         $transactionLog->description = $request->description;
         $transactionLog->status = $request->status;
@@ -299,33 +197,61 @@ class TransactionLogController extends Controller
 
         if ($amount > 0 && $transactionLog->delete()) {
             $customer = Customer::find($id);
-            switch ($currency) {
-                case 'usd':
-                    if ($type === 'deposit') {
-                        $customer->amount_usd -=  ($amount);
-                    } elseif ($type === 'withdraw') {
-                        $customer->amount_usd +=  ($amount);
-                    }
-                    $customer->save();
-                    break;
-                case 'yr':
-                    if ($type === 'deposit') {
-                        $customer->amount_yr -= ($amount);
-                    } elseif ($type === 'withdraw') {
-                        $customer->amount_yr +=  ($amount);
-                    }
-                    $customer->save();
-                    break;
-                case 'sr':
-                    if ($type === 'deposit') {
-                        $customer->amount_sr -=  ($amount);
-                    } elseif ($type === 'withdraw') {
-                        $customer->amount_sr +=  ($amount);
-                    }
-                    $customer->save();
-                    break;
-            }
+            // switch ($currency) {
+            //     case 'usd':
+            //         if ($type === 'deposit') {
+            //             $customer->amount_usd -=  ($amount);
+            //         } elseif ($type === 'withdraw') {
+            //             $customer->amount_usd +=  ($amount);
+            //         }
+            //         $customer->save();
+            //         break;
+            //     case 'yr':
+            //         if ($type === 'deposit') {
+            //             $customer->amount_yr -= ($amount);
+            //         } elseif ($type === 'withdraw') {
+            //             $customer->amount_yr +=  ($amount);
+            //         }
+            //         $customer->save();
+            //         break;
+            //     case 'sr':
+            //         if ($type === 'deposit') {
+            //             $customer->amount_sr -=  ($amount);
+            //         } elseif ($type === 'withdraw') {
+            //             $customer->amount_sr +=  ($amount);
+            //         }
+            //         $customer->save();
+            //         break;
+            //     case 'egp':
+            //         if ($type === 'deposit') {
+            //             $customer->amount_egp -=  ($amount);
+            //         } elseif ($type === 'withdraw') {
+            //             $customer->amount_egp +=  ($amount);
+            //         }
+            //         $customer->save();
+            //         break;
+            //     case 'try':
+            //         if ($type === 'deposit') {
+            //             $customer->amount_try -=  ($amount);
+            //         } elseif ($type === 'withdraw') {
+            //             $customer->amount_try +=  ($amount);
+            //         }
+            //         $customer->save();
+            //         break;
+            // }
+            $customer->adjustBalance($currency, $amount, $type == 'deposit' ? 'withdraw' : 'deposit');
         }
         return redirect()->route('transactionLogs.index', compact('id'));
+    }
+
+    public function recalculate($id)
+    {
+        $customer = Customer::findOrFail($id);
+
+        $customer->recalculateBalances();
+
+        return redirect()
+            ->route('transactionLogs.index', ['id' => $id])
+            ->with('success', 'تمت إعادة حساب العمليات بنجاح');
     }
 }
