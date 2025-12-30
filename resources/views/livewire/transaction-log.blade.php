@@ -105,7 +105,7 @@
         </table>
     </div>
 
-    <div class="d-flex justify-content-center mt-3">
+    <div class="d-flex justify-content-center mt-3 overflow-auto">
         {{ $logs->links() }}
     </div>
 
